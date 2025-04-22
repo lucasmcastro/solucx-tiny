@@ -15,10 +15,10 @@ TINY_AUTHORIZATION_URL = os.getenv('TINY_AUTHORIZATION_URL') # e.g., 'https://er
 TINY_TOKEN_URL = os.getenv('TINY_TOKEN_URL')           # e.g., 'https://api.tiny.com.br/api2/token'
 FLASK_SECRET_KEY = os.getenv('FLASK_SECRET_KEY')
 TINY_API_BASE_URL = os.getenv('TINY_API_BASE_URL')
-os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1' # disable SSL verification
 
 # --- Verify essential configuration is present ---
-if not all([TINY_CLIENT_ID, TINY_CLIENT_SECRET, TINY_AUTHORIZATION_URL, TINY_TOKEN_URL, FLASK_SECRET_KEY]):
+if not all([TINY_CLIENT_ID, TINY_CLIENT_SECRET, TINY_REDIRECT_URI,TINY_AUTHORIZATION_URL, TINY_TOKEN_URL, FLASK_SECRET_KEY]):
     raise ValueError("Essential Tiny ERP or Flask configuration is missing in .env file.")
 
 # Define the scope required by Tiny ERP API (Adjust if needed)
