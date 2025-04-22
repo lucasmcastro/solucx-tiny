@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiny ERP Orders</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .error { color: red; font-weight: bold; }
+        a { display: inline-block; margin-top: 20px; text-decoration: none; padding: 8px 15px; border: 1px solid #ccc; border-radius: 4px;}
+        a:hover { background-color: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>Tiny ERP Orders</h1>
+
+    <a href="{{ url_for('index') }}">Back to Home</a>
+
+    {% if error %}
+        <p class="error">Error fetching orders: {{ error }}</p>
+    {% elif orders is defined and orders %}
+        <p>Showing orders updated at "04-16-2025".</p> {# Assuming today_date_str is passed, otherwise fetch it again or display static text #}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Numero</th>
+                    <th>Data Pedido</th>
+                    <th>Cliente</th>
+                    <th>Situação</th>
+                    <th>Total</th>
+                    <!-- Add other relevant columns based on API response -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        {# Access data safely using .get() with default values #}
+                        <td>{{ order.get('id', 'N/A') }}</td>
+                        <td>{{ order.get('numero', 'N/A') }}</td>
+                        <td>{{ order.get('data_pedido', 'N/A') }}</td>
+                        {# Client might be nested #}
+                        <td>{{ order.get('cliente', {}).get('nome', 'N/A') }}</td>
+                        <td>{{ order.get('situacao', 'N/A') }}</td>
+                        <td>{{ order.get('valor_total', 'N/A') }}</td>
+                        <!-- Add other relevant data cells -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No orders found for the specified criteria or the API returned empty data.</p>
+    {% endif %}
+
+</body>
+</html>
+

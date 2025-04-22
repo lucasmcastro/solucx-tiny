@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiny ERP PoC</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        a { margin-right: 10px; text-decoration: none; padding: 8px 15px; border: 1px solid #ccc; border-radius: 4px; }
+        a:hover { background-color: #f0f0f0; }
+        .login-btn { background-color: #4CAF50; color: white; }
+        .logout-btn { background-color: #f44336; color: white; }
+        .fetch-btn { background-color: #008CBA; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Tiny ERP API PoC</h1>
+
+    {% if logged_in %}
+        <p><strong>Status:</strong> Logged In</p>
+        <a href="{{ url_for('fetch_orders') }}" class="fetch-btn">Fetch Orders "04-16-2025"</a>
+        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    {% else %}
+        <p><strong>Status:</strong> Logged Out</p>
+        <a href="{{ url_for('login') }}" class="login-btn">Login with Tiny ERP</a>
+    {% endif %}
+
+</body>
+</html>
+
